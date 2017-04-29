@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Blog.UI.Tests.Pages.HomePage;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
@@ -13,16 +14,15 @@ namespace Blog.UI.Tests
     public class BlogSmokeTests
     {
         [Test]
-        public void BlogLoadTest()
+        public void BlogLogoDisplayedRightMessage()
         {
-            IWebDriver driver = BrowserHost.Instance.Application.Browser;
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(60));
+            var homePage = new HomePage(BrowserHost.Instance.Application.Browser);
 
-            driver.Navigate().GoToUrl("http://localhost:60634/Article/List");
+            homePage.NavigateTo();
 
-            var logo = wait.Until(w => w.FindElement(By.XPath("/html/body/div[1]/div/div[1]/a")));
-
-            Assert.AreEqual("SOFTUNI BLOG", logo.Text);
+            homePage.AssertLogo();
         }
+
+
     }
 }
